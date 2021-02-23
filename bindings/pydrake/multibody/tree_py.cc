@@ -332,11 +332,16 @@ void DoScalarDependentDefinitions(py::module m, T) {
             py_rvp::reference_internal, cls_doc.default_rotational_inertia.doc)
         .def("default_spatial_inertia", &Class::default_spatial_inertia,
             py_rvp::reference_internal, cls_doc.default_spatial_inertia.doc)
+        .def("get_mass", &Class::get_mass,
+            cls_doc.get_mass.doc)
         .def("SetMass", &Class::SetMass, py::arg("context"), py::arg("mass"),
             cls_doc.SetMass.doc)
         .def("SetCenterOfMassInBodyFrame", &Class::SetCenterOfMassInBodyFrame,
             py::arg("context"), py::arg("com"),
             cls_doc.SetCenterOfMassInBodyFrame.doc)
+        .def("CalcSpatialInertiaInBodyFrame",
+             &Class::CalcSpatialInertiaInBodyFrame, py::arg("context"),
+             cls_doc.CalcSpatialInertiaInBodyFrame.doc)
         .def("SetSpatialInertiaInBodyFrame",
             &Class::SetSpatialInertiaInBodyFrame, py::arg("context"),
             py::arg("M_Bo_B"), cls_doc.SetSpatialInertiaInBodyFrame.doc);
@@ -995,6 +1000,7 @@ void DoScalarDependentDefinitions(py::module m, T) {
         .def(py::self += py::self)
         .def(py::self * SpatialAcceleration<T>())
         .def(py::self * SpatialVelocity<T>());
+    DefCopyAndDeepCopy(&cls);
   }
   // NOLINTNEXTLINE(readability/fn_size)
 }
